@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Done &amp; Done · Privacy Policy</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f7f5;
+        --surface: #ffffff;
+        --ink: #111111;
+        --muted: #5f5f5c;
+        --line: #dcdcd8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111111;
+          --surface: #191919;
+          --ink: #f2f2ee;
+          --muted: #a8a8a2;
+          --line: #333333;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.6;
+      }
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 48px 22px 80px;
+      }
+      header { margin-bottom: 32px; }
+      .mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        font-size: 18px;
+      }
+      .dot { width: 12px; height: 12px; border-radius: 4px; background: var(--ink); }
+      h1 { font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; margin: 28px 0 8px; }
+      h2 { font-size: 20px; margin: 34px 0 8px; letter-spacing: -0.01em; }
+      p, li { color: var(--muted); font-size: 16px; }
+      strong { color: var(--ink); }
+      .date { font-size: 14px; }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px;
+        margin-top: 24px;
+      }
+      ul { padding-left: 20px; }
+      a { color: var(--ink); }
+      footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="mark"><span class="dot"></span> Done &amp; Done</div>
+      </header>
+      <h1>Privacy Policy</h1>
+      <p class="date">Effective November 21, 2026</p>
+      <p>
+        Done &amp; Done is a private task messenger. People send task cards to the circles
+        they share instead of chatting. This policy explains what the app stores, why, and
+        how you can remove it.
+      </p>
+
+      <div class="card">
+        <strong>Short version</strong>
+        <p style="margin-bottom: 0">
+          Your name, email, tasks and push token are stored on the private server that runs
+          your circles. They are shown only to people in your circles. There are no ads, no
+          analytics and no tracking, and we do not sell data. You can delete your account
+          inside the app.
+        </p>
+      </div>
+
+      <h2>What the app stores</h2>
+      <ul>
+        <li><strong>Account details:</strong> your name and email address.</li>
+        <li>
+          <strong>Sign-in data:</strong> your password is stored as a one-way hash by the
+          server; the app never keeps your password.
+        </li>
+        <li>
+          <strong>Task content:</strong> task titles, notes, due dates, checklist or shopping
+          items, assignments, completions and the small activity events shown in a circle.
+        </li>
+        <li><strong>Circle details:</strong> the circle name, its owner and its members.</li>
+        <li>
+          <strong>Notification token:</strong> only if you turn on mobile notifications, so
+          the server can ask Expo to deliver a “task update” alert. The alert does not include
+          task text.
+        </li>
+      </ul>
+
+      <h2>Why it is stored</h2>
+      <p>
+        The data is used only to sign you in, keep your circles and tasks in sync, and send
+        the notifications you asked for. It is not used for advertising or profiling.
+      </p>
+
+      <h2>Who can see it</h2>
+      <p>
+        Task and circle data is limited to the members of that circle. The server operator
+        can access the server to run and maintain it. The app does not include third-party
+        advertising, analytics or tracking software. Push alerts are handed to Expo’s push
+        service for delivery; that service receives the notification text and your push
+        token, not your task list.
+      </p>
+
+      <h2>Where it is stored</h2>
+      <p>
+        The app talks to a self-hosted Appwrite server chosen by the person who runs your
+        circles. Data travels over HTTPS. The server keeps the data until you delete it or
+        the operator removes it.
+      </p>
+
+      <h2>Deleting your data</h2>
+      <p>
+        Open <strong>Settings → Delete my account</strong> and enter your password. Your
+        account, email, name, device tokens and circle memberships are removed. Tasks you
+        sent stay with their circle but are anonymised, and completed tasks keep their
+        historical completion time. If you were the last member of a circle, that circle and
+        its tasks are deleted. You can also copy your task data as JSON from Settings before
+        deleting your account.
+      </p>
+      <p>
+        If you cannot open the app, request deletion from outside the app at
+        <a href="https://grahammiranda13.github.io/doneanddone-pages/delete-account.html">the account deletion page</a>.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        Done &amp; Done is not directed to children under 13, and the app does not knowingly
+        collect their data.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If this policy changes, the new version will appear at this address with a new
+        effective date.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy or the data on your server should go to the person who
+        invited you or who operates your Done &amp; Done server.
+      </p>
+
+      <footer>Done &amp; Done · Privacy Policy</footer>
+    </main>
+  </body>
+</html>

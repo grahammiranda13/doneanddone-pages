@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Done &amp; Done · Delete your account</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f7f5;
+        --surface: #ffffff;
+        --ink: #111111;
+        --muted: #5f5f5c;
+        --line: #dcdcd8;
+        --danger: #a11d1d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111111;
+          --surface: #191919;
+          --ink: #f2f2ee;
+          --muted: #a8a8a2;
+          --line: #333333;
+          --danger: #ff8a80;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.6;
+      }
+      main { max-width: 640px; margin: 0 auto; padding: 48px 22px 80px; }
+      .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+      .dot { width: 12px; height: 12px; border-radius: 4px; background: var(--ink); }
+      h1 { font-size: 38px; line-height: 1.1; letter-spacing: -0.03em; margin: 28px 0 8px; }
+      p { color: var(--muted); font-size: 16px; }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px;
+        margin-top: 24px;
+      }
+      label { display: block; font-size: 13px; font-weight: 600; margin: 16px 0 6px; }
+      input, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        color: var(--ink);
+        font: inherit;
+      }
+      textarea { min-height: 96px; resize: vertical; }
+      button {
+        margin-top: 18px;
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 0;
+        background: var(--ink);
+        color: var(--bg);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:disabled { opacity: 0.5; cursor: default; }
+      #status { margin-top: 14px; font-size: 14px; color: var(--muted); }
+      #status.error { color: var(--danger); }
+      a { color: var(--ink); }
+      footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="mark"><span class="dot"></span> Done &amp; Done</div>
+      <h1>Delete your account</h1>
+      <p>
+        The fastest way is inside the app: open <strong>Settings → Delete my account</strong>
+        and enter your password. Your account, name, email, device tokens and circle
+        memberships are removed immediately.
+      </p>
+      <p>
+        If you cannot open the app, send a deletion request below. The person who operates
+        your Done &amp; Done server will remove the account and its data within 7 days and
+        will not use the address for anything else.
+      </p>
+
+      <div class="card">
+        <form id="request">
+          <label for="email">Email address on the account</label>
+          <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" />
+          <label for="note">Anything else we should know (optional)</label>
+          <textarea id="note" name="note" maxlength="1000"></textarea>
+          <button type="submit">Send deletion request</button>
+          <p id="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <p>
+        Read the <a href="https://grahammiranda13.github.io/doneanddone-pages/privacy.html">privacy policy</a> for what is stored and what
+        remains with your circles after deletion.
+      </p>
+      <footer>Done &amp; Done · Account deletion</footer>
+    </main>
+    <script>
+      const form = document.getElementById('request');
+      const status = document.getElementById('status');
+      const button = form.querySelector('button');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const email = form.email.value.trim();
+        const note = form.note.value.trim();
+        button.disabled = true;
+        status.className = '';
+        status.textContent = 'Sending…';
+        try {
+          const response = await fetch(
+            'https://appwrite.appdb.grahammiranda.network/v1/functions/done-api/executions',
+            {
+              method: 'POST',
+              headers: {
+                'X-Appwrite-Project': '6b021d27001b535aaf1a',
+                'content-type': 'application/json',
+              },
+              body: JSON.stringify({
+                body: JSON.stringify({
+                  path: '/api/done/deletion-request',
+                  method: 'POST',
+                  body: { email, note },
+                }),
+                method: 'POST',
+              }),
+            },
+          );
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || data.responseStatusCode !== 201)
+            throw new Error(data.message || 'The request could not be sent. Please try again.');
+          form.reset();
+          status.textContent =
+            'Request received. The server operator will remove the account and its data within 7 days.';
+        } catch (error) {
+          status.className = 'error';
+          status.textContent = error.message;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
